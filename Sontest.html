@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemple d'utilisation de l'API Web Audio</title>
+</head>
+<body>
+	<div id="maDiv" style="height:100px; background-color:gray;"></div>
+	<button id="monBouton">Jouer un son</button>
+	<script>
+		// définir la fréquence de base du son
+		var frequenceBase = 1040; // en Hz
+		
+		// obtenir la hauteur de la div
+		var hauteur = document.getElementById("maDiv").clientHeight;
+		
+		// calculer la fréquence du son en fonction de la hauteur de la div
+		var frequence = frequenceBase + hauteur;
+		
+		// créer un AudioContext
+		var contexteAudio = new AudioContext();
+		
+		// créer un oscillateur audio
+		var oscillateur = contexteAudio.createOscillator();
+		
+		// définir la fréquence de l'oscillateur
+		oscillateur.frequency.value = frequence;
+		
+		// connecter l'oscillateur à la sortie audio
+		oscillateur.connect(contexteAudio.destination);
+		
+		// ajouter un gestionnaire d'événements pour le clic sur le bouton
+		document.getElementById("monBouton").addEventListener("click", function() {
+			// démarrer l'oscillateur
+			oscillateur.start();
+			
+			// arrêter l'oscillateur après 1 seconde
+			setTimeout(function() {
+				oscillateur.stop();
+			}, 1000);
+		});
+	</script>
+</body>
+</html>
